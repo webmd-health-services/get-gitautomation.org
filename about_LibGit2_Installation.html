@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - about_LibGit2_Installation - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+        <h1>about_LibGit2_Installation</h1>
+
+    <p>LibGit2 can be installed from the PowerShell gallery, with Chocolatey, and NuGet.</p>
+
+    <h2>Install From Powershell Gallery</h2>
+<p>To install from the PowerShell Gallery, you must be running PowerShell 5 or 
+PowerShell 4 with the PowerShellGet module installed. If so, run:<br />
+    PS> Install-Module -Name 'LibGit2'</p>
+
+<p>You can now import LibGit2 by running:</p>
+
+<pre><code>PS&gt; Import-Module 'LibGit2'
+</code></pre>
+<h2>Install With Chocolatey</h2>
+<p>To install with Chocolatey, you'll need <a href="http://chocolatey.org">Chocolatey installed</a>.
+With Chocolatey installed, run:</p>
+
+<pre><code>PS&gt; choco install LibGit2.PowerShell
+</code></pre>
+
+<p>This will install LibGit2 into one of PowerShell's module paths. You can now import
+LibGit2 by running:</p>
+
+<pre><code>PS&gt; Import-Module 'LibGit2'
+</code></pre>
+<h2>Install With Nuget</h2>
+<p>To install with NuGet, you'll need <a href="http://nuget.org">NuGet installed</a>. With NuGet
+installed, run:</p>
+
+<pre><code>PS&gt; nuget install LibGit2.PowerShell
+</code></pre>
+
+<p>This will create a <code>LibGit2.X.Y.Z</code> directory in your current directory (or the 
+output directory you specified with Nuget's <code>OutputDirectory</code> parameter). You can
+import LibGit2 from that directory using the `Import-LibGit2.ps1 script:</p>
+
+<pre><code>PS&gt; .\LibGit2.X.Y.Z\LibGit2\Import-LibGit2.ps1
+</code></pre>
+
+<p>Or with PowerShell's <code>Import-Module</code> command:</p>
+
+<pre><code>PS&gt; Import-Module '.\LibGit2.X.Y.Z\LibGit2'
+</code></pre>
+
+<p>If you want LibGit2 available so you can run <code>Import-Module LibGit2</code>, copy the
+<code>LibGit2.X.Y.Z\LibGit2</code> directory into one of PowerShell's module paths. This 
+command will give you a list:</p>
+
+<pre><code>PS&gt; $env:PSModulePath -split ';'
+</code></pre>
+<h2>See Also</h2>
+    <ul>
+        <li><a href="http://chocolatey.org/packages/LibGit2.PowerShell">http://chocolatey.org/packages/LibGit2.PowerShell</a></li>
+<li><a href="http://www.nuget.org/packages/LibGit2.PowerShell">http://www.nuget.org/packages/LibGit2.PowerShell</a></li>
+<li><a href="https://www.powershellgallery.com/packages/LibGit2">https://www.powershellgallery.com/packages/LibGit2</a></li>
+    </ul>
+
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>
