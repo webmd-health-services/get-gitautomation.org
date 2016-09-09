@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Add-GitItem - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+    <h1>Add-GitItem</h1>
+<div class="Synopsis">
+<p>Promotes changes to the Git staging area so they can be saved during the next commit.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Add-GitItem [-Path] &lt;String[]&gt; [[-RepoRoot] &lt;String&gt;] [-PassThru] [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Add-GitItem</code> function promotes new/untracked and modified files to the Git staging area. When committing changes, by default Git only commits changes that have been staged. Use this function on each file you want to commit before committing. No other files will be committed.</p>
+
+<p>Use the <code>PassThru</code> switch to get <code>IO.FileInfo</code> and <code>IO.DirectoryInfo</code> objects back for each file and directory added, respectively. If the items are already added or were unmodified and not added to the staging area, you'll still get objects back for them.</p>
+
+<p>This function implements the <code>git add</code> command.</p>
+</div>
+
+<h2>Related Commands</h2>
+
+<ul class="RelatedCommands">
+<li><a href="Save-GitChange.html">Save-GitChange</a></li>
+</ul>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>Path</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String[]</a></td>
+	<td class="ParamDescription"><p>The paths to the files/directories to add to the next commit.</p></td>
+	<td>true</td>
+	<td>true (ByValue, ByPropertyName)</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>RepoRoot</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The path to the repository where the files should be added. The default is the current directory as returned by Get-Location.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>(Get-Location).ProviderPath</td>
+</tr>
+<tr valign='top'>
+	<td>PassThru</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter.aspx">SwitchParameter</a></td>
+	<td class="ParamDescription"><p>Return <code>IO.FileInfo</code> and/or <code>IO.DirectoryInfo</code> objects for each file and/or directory added, respectively.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>False</td>
+</tr>
+
+</table>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>Add-GitItem -Path 'C:\Projects\LibGit2'</code></pre>
+<p>Demonstrates how to add all the items under a directory to the next commit to the repository in the current directory.</p>
+
+
+<h2>EXAMPLE 2</h2>
+<pre><code>Add-GitItem -Path 'C:\Projects\LibGit2\Functions\Add-GitItem.ps1','C:\Projects\LibGit2\Tests\Add-GitItem.Tests.ps1'</code></pre>
+<p>Demonstrates how to add multiple items and files to the next commit.</p>
+
+
+<h2>EXAMPLE 3</h2>
+<pre><code>Get-ChildItem '.\LibGit2\Functions','.\Tests' | Add-GitItem</code></pre>
+<p>Demonstrates that you can pipe paths or file system objects to Add-GitItem. When passing directories, all untracked/new or modified files under that directory are added. When passing files, only that file is added.</p>
+
+
+<h2>EXAMPLE 4</h2>
+<pre><code>Add-GitItem -Path 'C:\Projects\LibGit2' -RepoRoot 'C:\Projects\LibGit2'</code></pre>
+<p>Demonstrates how to operate on a repository that isn't the current directory.</p>
+
+
+<h2>EXAMPLE 5</h2>
+<pre><code>Get-ChildItem | Add-GitItem</code></pre>
+<p>Demonstrates that you can pipe <code>IO.FileInfo</code> and <code>IO.DirectoryInfo</code> objects to <code>Add-GitItem</code>. Plain strings are also allowed.</p>
+
+
+<h2>EXAMPLE 6</h2>
+<pre><code>Add-GitItem -Path 'file1','directory1' -PassThru</code></pre>
+<p>Demonstrates how to get <code>IO.FileInfo</code> and <code>IO.DirectoryInfo</code> objects returned for each file and directory, respectively.</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

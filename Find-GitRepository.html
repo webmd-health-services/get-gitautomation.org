@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Find-GitRepository - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+    <h1>Find-GitRepository</h1>
+<div class="Synopsis">
+<p>Searches a directory and its parents for a Git repository.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Find-GitRepository [[-Path] &lt;String&gt;] [-Verify] [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Find-GitRepository</code> function searches a directory for a Git repository and returns a <code>LibGit2Sharp.Repository</code> object representing that repository. If a repository isn't found, it looks up the directory tree until it finds one (i.e. it looks at the directories parent directory, then that directory's parent, then that directory's parent, etc. until it finds a repository or gets to the root directory. If it doesn't find one, nothing is returned.</p>
+
+<p>With no parameters, looks in the current directory and up its directory tree. If given a path with the <code>Path</code> parameter, it looks in that directory then up its directory tree.</p>
+
+<p>The repository object that is returned contains resources that don't get automatically removed from memory by .NET. To avoid memory leaks, you must call its <code>Dispose()</code> method when you're done using it.</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>Path</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The path to start searching.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>(Get-Location).ProviderPath</td>
+</tr>
+<tr valign='top'>
+	<td>Verify</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter.aspx">SwitchParameter</a></td>
+	<td class="ParamDescription"><p>Write an error if a repository isn't found. Usually, no error is written and nothing is returned when a repository isn't found.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>False</td>
+</tr>
+
+</table>
+
+<h2>Return Values</h2>
+<div class="ReturnValues">
+<p>LibGit2Sharp.Repository. </p>
+</div>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>Find-GitRepository</code></pre>
+<p>Demonstrates how to find the Git repository of the current directory.</p>
+
+
+<h2>EXAMPLE 2</h2>
+<pre><code>Find-GitRepository -Path 'C:\Projects\LibGit2.PowerShell\LibGit2\bin'</code></pre>
+<p>Demonstrates how to find the Git repository that a specific directory is a part of. In this case, a <code>LibGit2Sharp.Repository</code> object is returned for the repository at <code>C:\Projects\LibGit2.PowerShell</code>.</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

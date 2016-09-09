@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Get-GitRepositoryStatus - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+    <h1>Get-GitRepositoryStatus</h1>
+<div class="Synopsis">
+<p>Gets information about all added, untracked, and modified files in a repository.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Get-GitRepositoryStatus [[-Path] &lt;String[]&gt;] [-IncludeIgnored] [-RepoRoot &lt;String&gt;] [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Get-GitRepositoryStatus</code> commands gets information about which files in your working directory are new, untracked, or modified, including files that have been staged for the next commit. It gets information about each uncommitted change in your repository.</p>
+
+<p>Ignored items are not returned unless you provide the <code>IncludeIgnored</code> switch.</p>
+
+<p>You can get status for specific files and directories with the Path parameter. If you provide a <code>RepoRoot</code> parameter to work with a specific repository, the values of the <code>Path</code> parameter should be relative to the root of that repository. With no <code>RepoRoot</code> parameter, the paths in the <code>Path</code> parameter are treated as relative to the current directory. Wildcards are supported and are passed directly to Git to evaluate (i.e. use Git wildcard syntax not PowerShell's).</p>
+
+<p>The <code>LibGit2Sharp.StatusEntry</code> objects returned have several extended type data members added. You should use these members instead of using the object's <code>State</code> property.</p>
+
+<ul>
+<li><code>IsStaged</code>: <code>$true</code> if the item has been staged for the next commit; <code>$false</code> otherwise.</li>
+<li><code>IsAdded</code>: returns <code>$true</code> if the item is new in the working directory or has been staged for the next commit; <code>$false</code> otherwise.</li>
+<li><code>IsConflicted</code>: returns <code>$true</code> if the item was merged and currently has conflicts; <code>$false</code> otherwise.</li>
+<li><code>IsDeleted</code>: returns <code>$true</code> if the item was deleted from the working directory or has been staged for removal in the next commit; <code>$false</code> otherwise.</li>
+<li><code>IsIgnored</code>: returns <code>$true</code> if the item is ignored; <code>$false</code> otherwise. You'll only see ignored items if you use the <code>IncludeIgnored</code> switch.</li>
+<li><code>IsModified</code>: returns <code>$true</code> if the item is modified; <code>$false</code> otherwise.</li>
+<li><code>IsRenamed</code>: returns <code>$true</code> if the item was renamed; <code>$false</code> otherwise.</li>
+<li><code>IsTypeChanged</code>: returns <code>$true</code> if the item's type was changed; <code>$false</code> otherwise.</li>
+<li><code>IsUnchanged</code>: returns <code>$true</code> if the item is unchanged; <code>$false</code> otherwise.</li>
+<li><code>IsUnreadable</code>: returns <code>$true</code> if the item is unreadable; <code>$false</code> otherwise.</li>
+<li><code>IsUntracked</code>: returns <code>$true</code> if the item is untracked (i.e. hasn't been staged or added to the repository); <code>$false</code> otherwise.</li>
+</ul>
+
+<p>When displayed in a table (the default), the first column will show characters that indicate the state of each item, e.g.</p>
+
+<pre><code>State    FilePath                                                                                                                                                                                                                                            
+-----    --------                                                                                                                                                                                                                                            
+ a       LibGit2\Formats\LibGit2Sharp.StatusEntry.ps1xml                                                                                                                                                                                                     
+ a       LibGit2\Functions\Get-GitRepositoryStatus.ps1                                                                                                                                                                                                       
+  m      LibGit2\LibGit2.psd1                                                                                                                                                                                                                                
+ a       LibGit2\Types\LibGit2Sharp.StatusEntry.types.ps1xml                                                                                                                                                                                                 
+ a       Tests\Get-GitRepositoryStatus.Tests.ps1
+</code></pre>
+
+<p>The state will display:</p>
+
+<ul>
+<li><code>i</code> if the item is ignored (i.e. <code>IsIgnored</code> returns <code>$true</code>)</li>
+<li><code>a</code> if the item is untracked or staged for the next commit (i.e. <code>IsAdded</code> returns <code>$true</code>)</li>
+<li><code>m</code> if the item was modified (i.e. <code>IsModified</code> returns <code>$true</code>)</li>
+<li><code>d</code> if the item was deleted (i.e. <code>IsDeleted</code> returns <code>$true</code>)</li>
+<li><code>r</code> if the item was renamed (i.e. <code>IsRenamed</code> returns <code>$true</code>)</li>
+<li><code>t</code> if the item's type was changed (i.e. <code>IsTypeChanged</code> returns <code>$true</code>)</li>
+<li><code>?</code> if the item can't be read (i.e. <code>IsUnreadable</code> returns <code>$true</code>)</li>
+<li><code>!</code> if the item was merged with conflicts (i.e. <code>IsConflicted</code> return <code>$true</code>)</li>
+</ul>
+
+<p>If no state characters are shown, the file is unchanged (i.e. <code>IsUnchanged</code> return <code>$true</code>).</p>
+
+<p>This function implements the <code>git status</code> command.</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>Path</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String[]</a></td>
+	<td class="ParamDescription"><p>The path to specific files and/or directories whose status to get. Git-style wildcards are supported. </p>
+
+<p>If no <code>RepoRoot</code> parameter is provided, these paths are evaluated as relative to the current directory. If a <code>RepoRoot</code> parameter is provided, these paths are evaluated as relative to the root of that repository.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>IncludeIgnored</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter.aspx">SwitchParameter</a></td>
+	<td class="ParamDescription"><p>Return ignored files and directories. The default is to not return them.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>False</td>
+</tr>
+<tr valign='top'>
+	<td>RepoRoot</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The path to the repository whose status to get.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>(Get-Location).ProviderPath</td>
+</tr>
+
+</table>
+
+<h2>Return Values</h2>
+<div class="ReturnValues">
+<p>LibGit2Sharp.StatusEntry. </p>
+</div>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>Get-GitRepositoryStatus</code></pre>
+<p>Demonstrates how to get the status of any uncommitted changes for the repository in the current directory.</p>
+
+
+<h2>EXAMPLE 2</h2>
+<pre><code>Get-GitRepositoryStatus -RepoRoot 'C:\Projects\LibGit2.PowerShell'</code></pre>
+<p>Demonstrates how to get the status of any uncommitted changes for the repository at a specific location.</p>
+
+
+<h2>EXAMPLE 3</h2>
+<pre><code>Get-GitRepositoryStatus -Path 'build.ps1','*.cs'</code></pre>
+<p>Demonstrates how to get the status for specific files at or under the current directory using the Path parameter. In this case, only modified files named <code>build.ps1</code> or that match the wildcard <code>*.cs</code> under the current directory will be returned.</p>
+
+
+<h2>EXAMPLE 4</h2>
+<pre><code>Get-GitRepositoryStatus -Path 'build.ps1','*.cs' -RepoRoot 'C:\Projects\LibGit2.PowerShell`</code></pre>
+<p>Demonstrates how to get the status for specific files under the root of a specific repository. In this case, only modified files named <code>build.ps1</code> or that match the wildcard <code>*.cs</code> under <code>C:\Projects\LibGit2.PowerShell</code> will be returned.</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>
