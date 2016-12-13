@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - New-GitBranch - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+    <h1>New-GitBranch</h1>
+<div class="Synopsis">
+<p>Creates a new branch in a Git repository.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>New-GitBranch [[-RepoRoot] &lt;String&gt;] [-Name] &lt;String&gt; [[-Revision] &lt;String&gt;] [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>New-GitBranch</code> creates a new branch in a Git repository and then switches to (i.e. checks out) that branch.</p>
+
+<p>It defaults to the current repository. Use the <code>RepoRoot</code> parameter to specify an explicit path to another repo.</p>
+
+<p>This function implements the <code>git branch &lt;branchname&gt; &lt;startpoint&gt;</code> and <code>git checkout &lt;branchname&gt;</code> commands.</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>RepoRoot</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>Specifies which git repository to add a branch to. Defaults to the current directory.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>(Get-Location).ProviderPath</td>
+</tr>
+<tr valign='top'>
+	<td>Name</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The name of the new branch.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Revision</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The revision where the branch should be started/created. A revision can be a specific commit ID/sha (short or long), branch name, tag name, etc. Run git help gitrevisions or go to <a href="https://git-scm.com/docs/gitrevisions">https://git-scm.com/docs/gitrevisions</a> for full documentation on Git's revision syntax.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>HEAD</td>
+</tr>
+
+</table>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>New-GitBranch -RepoRoot 'C:\Projects\LibGit2' -Name 'develop'</code></pre>
+<p>Demonstrates how to create a new branch named 'develop' in the specified repository.</p>
+
+
+<h2>EXAMPLE 2</h2>
+<pre><code>New-GitBranch -Name 'develop</code></pre>
+<p>Demonstrates how to create a new branch named 'develop' in the current directory.</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

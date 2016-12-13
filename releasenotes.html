@@ -16,7 +16,38 @@
         <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
     </ul>
 
-    <h1>0.1.0 (9 September 2016)</h1>
+    <h1>0.3.0 (13 December 2016)</h1>
+
+<ul>
+<li>Added <a href="Get-GitCommit.html">Get-GitCommit</a> function for getting commits.</li>
+<li>Added <a href="Test-GitOutgoingCommit.html">Test-GitOutgoingCommit</a> function for checking if there are outgoing changes.</li>
+<li>Added <code>Test-GitUncommmittedChange</code> function for checking if there are any uncommitted changes in a repository.</li>
+<li>Added <a href="Receive-GitCommit.html">Receive-GitCommit</a> function for pulling/fetching changes into a repository from a remote repository.</li>
+<li>Added <a href="Test-GitRemoteUri.html">Test-GitRemoteUri</a> function for testing if a URI points to a Git repository.</li>
+<li>Added <a href="Test-GitIncomingCommit.html">Test-GitIncomingCommit</a> function for testing if there are incoming/unpulled/unfetched commits.</li>
+<li>Added <a href="Get-GitBranch.html">Get-GitBranch</a> function for getting the branches in a repository.</li>
+<li>Added <a href="New-GitBranch.html">New-GitBranch</a> function for creating a new branch in a repository.</li>
+<li>Added <a href="Test-GitBranch.html">Test-GitBranch</a> function for testing if a branch exists in a repository.</li>
+<li>Added <a href="Get-GitTag.html">Get-GitTag</a> function for getting the tags in a repository.</li>
+<li>Added <a href="New-GitTag.html">New-GitTag</a> function for creating tags in a repository.</li>
+<li>Added <a href="Test-GitTag.html">Test-GitTag</a> function for testing if a tag exists in a repository.</li>
+<li>Added <a href="Update-GitRepository.html">Update-GitRepository</a> for updating a repository to a commit, branch, tag, etc, i.e. for checking out a specific commit.</li>
+</ul>
+
+<h1>0.2.0 (4 November 2016)</h1>
+
+<ul>
+<li>Added <a href="Set-GitConfiguration.html">Set-GitConfiguration</a> for setting Git configuration variables. Implements the <code>git config</code> command.</li>
+<li>Added SSH support. You must have an <code>ssh.exe</code> program in your path.</li>
+</ul>
+
+<h1>0.1.1 (9 September 2016)</h1>
+
+<ul>
+<li>Fixed: NuGet, Chocolatey, and PowerShell Gallery packages are missing assemblies.</li>
+</ul>
+
+<h1>0.1.0 (9 September 2016)</h1>
 
 <ul>
 <li>Created <a href="Add-GitItem.html">Add-GitItem</a> function for promoting new, untracked, and modified files/directories to the Git staging area so they can be committed. Implements the <code>git add</code> command.</li>

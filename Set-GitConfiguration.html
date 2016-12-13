@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Set-GitConfiguration - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+    <h1>Set-GitConfiguration</h1>
+<div class="Synopsis">
+<p>Sets Git configuration options</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Set-GitConfiguration [-Name] &lt;String&gt; [-Value] &lt;String&gt; [-Scope {System | Xdg | Global | Local}] [-RepoRoot &lt;String&gt;] [&lt;CommonParameters&gt;]</code></pre>
+<pre class="Syntax"><code>Set-GitConfiguration [-Name] &lt;String&gt; [-Value] &lt;String&gt; -Path &lt;String&gt; [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Set-GitConfiguration</code> function sets Git configuration variables. These variables change Git's behavior. Git has hundreds of variables and we can't document them here. Some are shared between Git commands. Some variables are only used by specific commands. The <code>git help config</code> help topic lists most of them.</p>
+
+<p>By default, this function sets options for the current repository, or a specific repository using the <code>RepoRoot</code> parameter. To set options for the current user across all repositories, use the <code>-Global</code> switch. If running in an elevated process, <code>Set-GitConfiguration</code> will look in <code>$env:HOME</code> and <code>$env:USERPROFILE</code> (in that order) for a .gitconfig file. If it can't find one, it will create one in <code>$env:HOME</code>. If the <code>HOME</code> environment variable isn't defined, it will create a <code>.gitconfig</code> file in the <code>$env:USERPROFILE</code> directory.</p>
+
+<p>If running in a non-elevated process, <code>Set-GitConfiguration</code> will look in <code>$env:HOME</code>, <code>$env:HOMEDRIVE$env:HOMEPATH</code>, and <code>$env:USERPROFILE</code> (in that order) and use the first <code>.gitconfig</code> file it finds. If it can't find a <code>.gitconfig</code> file, it will create a <code>.gitconfig</code> in the <code>$env:HOME</code> directory. If the <code>HOME</code> environment variable isn't defined, it will create the <code>.gitconfig</code> file in the <code>$env:HOMEDRIVE$env:HOMEPATH</code> directory.</p>
+
+<p>To set the configuration in a specific file, use the <code>Path</code> parameter. If the file doesn't exist, it is created.</p>
+
+<p>This function implements the <code>git config</code> command.</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>Name</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The name of the configuration variable to set.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Value</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The value of the configuration variable.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Scope</td>
+	<td>ConfigurationLevel</td>
+	<td class="ParamDescription"><p>Where to set the configuration value. Local means the value will be set for a specific repository. Global means set for the current user. System means set for all users on the current computer. The default is <code>Local</code>.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>Local</td>
+</tr>
+<tr valign='top'>
+	<td>Path</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The path to a specific file whose configuration to update.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>RepoRoot</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The path to the repository whose configuration variables to set. Defaults to the repository the current directory is in.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+
+</table>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>Set-GitConfiguration -Name 'core.autocrlf' -Value 'false'</code></pre>
+<p>Demonstrates how to set the <code>core.autocrlf</code> setting to <code>false</code> for the repository in the current directory.</p>
+
+
+<h2>EXAMPLE 2</h2>
+<pre><code>Set-GitConfiguration -Name 'core.autocrlf' -Value 'false' -Global</code></pre>
+<p>Demonstrates how to set a configuration variable so that it applies across all a user's repositories by using the <code>-Global</code> switch.</p>
+
+
+<h2>EXAMPLE 3</h2>
+<pre><code>Set-GitConfiguration -Name 'core.autocrlf' -Value 'false' -RepoRoot 'C:\Projects\LibGit2.PowerShell'</code></pre>
+<p>Demonstrates how to set a configuration variable for a specific repository. In this case, the configuration for the repository at <code>C:\Projects\LibGit2.PowerShell</code> will be updated.</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

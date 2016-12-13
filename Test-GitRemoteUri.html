@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Test-GitRemoteUri - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+    <h1>Test-GitRemoteUri</h1>
+<div class="Synopsis">
+<p>Tests if the uri leads to a git repository</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Test-GitRemoteUri [-Uri] &lt;String&gt; [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Test-GitRemoteUri</code> tries to list remote references for the specified uri. A uri that is not a git repo will throw a LibGit2SharpException.</p>
+
+<p>This function is similar to <code>git ls-remote</code> but returns a bool based on if there is any output</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>Uri</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The uri to test</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+
+</table>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>Test-GitRemoteUri -Uri 'ssh://git@stash.portal.webmd.com:7999/whs/blah.git'</code></pre>
+<p>Demonstrates how to check if there is a repo at the specified uri</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

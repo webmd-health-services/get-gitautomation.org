@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - New-GitTag - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+    <h1>New-GitTag</h1>
+<div class="Synopsis">
+<p>Creates a new tag in a Git repository.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>New-GitTag [[-RepoRoot] &lt;String&gt;] [-Name] &lt;String&gt; [[-Revision] &lt;String&gt;] [-Force] [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>New-GitTag</code> function creates a tag in a Git repository. </p>
+
+<p>A tag is a name that references/points to a specific commit in the repository. By default, the tag points to the commit checked out in the working directory. To point to a specific commit, pass the commit ID to the <code>Target</code> parameter.</p>
+
+<p>If the tag already exists, this function will fail. If you want to update an existing tag to point to a different commit, use the <code>Force</code> switch.</p>
+
+<p>This function implements the <code>git tag &lt;tagname&gt; &lt;target&gt;</code> command.</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>RepoRoot</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>Specifies which git repository to add the tag to. Defaults to the current directory.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>(Get-Location).ProviderPath</td>
+</tr>
+<tr valign='top'>
+	<td>Name</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The name of the tag.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Revision</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The revision the tag should point to/reference. A revision can be a specific commit ID/sha (short or long), branch name, tag name, etc. Run git help gitrevisions or go to <a href="https://git-scm.com/docs/gitrevisions">https://git-scm.com/docs/gitrevisions</a> for full documentation on Git's revision syntax.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>HEAD</td>
+</tr>
+<tr valign='top'>
+	<td>Force</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter.aspx">SwitchParameter</a></td>
+	<td class="ParamDescription"><p>Overwrite existing tag to point at new target</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>False</td>
+</tr>
+
+</table>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>New-GitTag -Name 'BranchBaseline'</code></pre>
+<p>Creates a new tag, <code>BranchBaseline</code>, for the HEAD of the current directory.</p>
+
+
+<h2>EXAMPLE 2</h2>
+<pre><code>New-GitTag -Name 'BranchBaseline' -Target 'branch'</code></pre>
+<p>Demonstrates how to create a tag pointing to the head of a branch.</p>
+
+
+<h2>EXAMPLE 3</h2>
+<pre><code>New-GitTag -Name 'BranchBaseline' -Force</code></pre>
+<p>Demonstrates how to change the target a tag points to, to the current HEAD.</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

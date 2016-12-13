@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Test-GitIncomingCommit - LibGit2</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-LibGit2</a></li>
+        <li><a href="about_LibGit2_Installation.html">-Install</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/splatteredbits/LibGit2.PowerShell">-Project</a></li>
+    </ul>
+
+    <h1>Test-GitIncomingCommit</h1>
+<div class="Synopsis">
+<p>Tests for incoming commits not in your local directory for a given repository.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Test-GitIncomingCommit [[-RepoRoot] &lt;String&gt;] [-All] [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Test-GitIncomingCommit</code> function checks if there are commits in the remote repository that are not in the local repository.</p>
+
+<p>If the -All switch is used, all branches are checked. Otherwise, just the current branch.</p>
+
+<p>It defaults to the current repository. Use the <code>RepoRoot</code> parameter to specify an explicit path to another repo.</p>
+
+<p>This function implements the <code>git log branch..remotes/origin/branch</code> command</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>RepoRoot</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The repository to test for incoming changes. Defaults to the current directory.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>(Get-Location).ProviderPath</td>
+</tr>
+<tr valign='top'>
+	<td>All</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter.aspx">SwitchParameter</a></td>
+	<td class="ParamDescription"><p>Check for incoming commits on all branches. Otherwise, just current.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>False</td>
+</tr>
+
+</table>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>Test-GitIncomingChange -RepoRoot 'C:\Projects\LibGit2'</code></pre>
+<p>Demonstrates how to check for incoming changes for a repository that isn't the current directory.</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>
